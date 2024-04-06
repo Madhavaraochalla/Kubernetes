@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+  labels:
+    name: postgres-pod
+    type: db
+    author: madhav
+spec:
+  containers:
+  - name: postgres-db
+    image: postgres-db
+    env:
+     - name: POSTGRES_PASSWORD
+       value: madhav
+     - name: POSTGRES_USER
+       value: myuser
+     - name: POSTGRES_DB
+       value: mydb
+...
