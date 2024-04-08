@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-app-deployment
+  labels:
+   name: postgres-app
+   author: madhav
+spec:
+  selector:
+    matchLabels:
+      author: madhav
+      name: postgres-app
+  template:
+    metadata:
+      labels:
+        author: madhav
+    spec:
+      containers:
+      - name: mydb
+        image: postgres
+        env:
+         - name: POSTGRES_PASSWORD
+           valueFrom: 
+            secretKeyRef:
+              name: postgres-secret
+              key: madhav
+         - name: POSTGRES_USER
+           valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: myuser
+         - name: POSTGRES_DB
+           valueFrom:
+            secretKeyRef:
+             name: postgres-secret
+             key: mydb
+...
