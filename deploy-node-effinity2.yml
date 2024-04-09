@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+   type: proxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      type: nginx-pod
+  template:
+    metadata:
+      labels:
+        type: nginx-pod
+    spec:
+      containers:
+      - name: nginx-deployment
+        image: nginx
+      affinity:
+         nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+            - matchExpressions:
+              - key: slave1
+                operator: In
+                values:
+                  - madhav1
+...
+  

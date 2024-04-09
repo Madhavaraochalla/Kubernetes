@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deployment
+  labels:
+   type: webserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      name: httpd-deployment
+      labels:
+        app: webserver
+    spec:
+       containers:
+        - name: httpd-pod
+          image: httpd
+       tolerations:
+        - key: slave2
+          operator: Equal
+          value: madhav2
+          effect: NoSchedule
+...
